@@ -54,14 +54,20 @@ def readModelParameters():
                 start = 1
                 continue
             dicentry = line.split('\t')
-            initialProbablities[dicentry[0]] = float(dicentry[1])
+            try:
+                initialProbablities[dicentry[0]] = float(dicentry[1])
+            except:
+                pass
         elif flag == 4:
             if start == 0:
                 start = 1
                 continue
             dicentry = line.split('\t')
-            endProbablities[dicentry[0]] = float(dicentry[1])
-            tagIndexDict[dicentry[0]] = int(dicentry[2])
+            try:
+                endProbablities[dicentry[0]] = float(dicentry[1])
+                tagIndexDict[dicentry[0]] = int(dicentry[2])
+            except:
+                pass
         elif flag == 5:
             if start == 0:
                 start = 1
@@ -189,10 +195,7 @@ def viterbiMatrix(words):
         try:
             currentTag = correspondingTags[tagIndexDict[currentTag]][colIndex]
         except KeyError as e:
-            print viterbiMatrix[:,[len(words)-1]]
-            print "--------------------------------"
-            #print emissionMatrix[:,[len(words)-1]]
-            #print words
+            pass
         assignedTags.append(currentTag)
 
     assignedTags = assignedTags[::-1]
